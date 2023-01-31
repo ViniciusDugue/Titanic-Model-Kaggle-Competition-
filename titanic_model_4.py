@@ -52,3 +52,4 @@ plt.title('Scatter plot of Pclass and Sex')
 plt.xlabel('Pclass')
 plt.ylabel('Sex')
 plt.show()
+#first edit

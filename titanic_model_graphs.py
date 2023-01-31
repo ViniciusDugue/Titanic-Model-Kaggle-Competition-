@@ -88,4 +88,4 @@ x4 = [num_alone, num_not_alone]
 axs[0][1].pie(x4, labels = ['Alone', 'Not Alone'], colors = sns.color_palette('pastel')[0:5], autopct='%1.1f%%', radius = 1.7, textprops={'fontsize': 14})
 plt.show()
 
-#first edit yesyesyes
+#first edit
