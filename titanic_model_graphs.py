@@ -14,9 +14,12 @@ import matplotlib.pyplot as plt
 import missingno as msno
 import seaborn as sns
 import numpy as np
-#Load in csv file into pandas
-train_data = pd.read_csv(r'C:\Users\vinic\OneDrive\Desktop\Titanic Competition(Kaggle)\train.csv')
-test_data = pd.read_csv(r'C:\Users\vinic\OneDrive\Desktop\Titanic Competition(Kaggle)\test.csv')
+#PC files
+train_data = pd.read_csv(r'C:\Users\Vinicius Dugue\Desktop\Titanic Competition(Kaggle)\train.csv')
+test_data = pd.read_csv(r'C:\Users\Vinicius Dugue\Desktop\Titanic Competition(Kaggle)\test.csv')
+#Laptop files
+# train_data = pd.read_csv(r'C:\Users\vinic\OneDrive\Desktop\Titanic Competition(Kaggle)\train.csv')
+# test_data = pd.read_csv(r'C:\Users\vinic\OneDrive\Desktop\Titanic Competition(Kaggle)\test.csv')
 
 print(train_data.head())
 #Clean Data/(X_train, y_train, X_valid, y_valid, my_cols)
