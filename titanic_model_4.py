@@ -48,13 +48,20 @@ Full_data['Deck'] = Full_data['Cabin'].apply(lambda s: s[0] if pd.notnull(s) els
 # One passenger in Deck T is 1st class so change to Deck A for ease
 idx = Full_data[Full_data['Deck'] == 'T'].index
 Full_data.loc[idx, 'Deck'] = 'A'
+#After looking at bar graph below we decide to limit cardinality of Deck feature
+Full_data['Deck'] = Full_data['Deck'].replace(['A', 'B', 'C'], 'ABC')
+Full_data['Deck'] = Full_data['Deck'].replace(['D', 'E'], 'DE')
+Full_data['Deck'] = Full_data['Deck'].replace(['F', 'G'], 'FG')
+
+#Drop cabin feature because there is Deck
+Full_data=Full_data.drop('Cabin',axis=1)
 
 #Create bar graph displaying survival counts for each deck
 Bar_data = Full_data.dropna(subset=['Survived'])
 Bar_data['Survived'] = Bar_data['Survived'].astype(int)
 
 print(Bar_data['Survived'])
-deck_survived = {'A':[0,0],'B':[0,0],'C':[0,0],'D':[0,0],'E':[0,0],'F':[0,0],'G':[0,0]}
+deck_survived = {'ABC':[0,0],'DE':[0,0],'FG':[0,0],'M':[0,0]}
 
 for index, row in Bar_data.iterrows():
     deck = row['Deck']
@@ -66,16 +73,25 @@ decks = list(deck_survived.keys())
 survived_count = [deck_survived[deck][1] for deck in decks]
 not_survived_count = [deck_survived[deck][0] for deck in decks]
 
-fig,ax = plt.subplot()
-ax.bar(decks, survived_count, label='Survived')
-ax.bar(decks, not_survived_count, bottom=survived_count, label='Not Survived')
+survived_percentage = [deck_survived[deck][1] * 100/(deck_survived[deck][1] + deck_survived[deck][0]) for deck in decks]
+not_survived_percentage = [deck_survived[deck][0] * 100/(deck_survived[deck][1] + deck_survived[deck][0]) for deck in decks]
 
-ax.set_ytitle('Survival Count')
-ax.set_xtitle('Deck')
-ax.set_title('Survival Counts for Each Deck')
+# fig1,axs = plt.subplot()
+plt.figure(1)
+plt.bar(decks, survived_count, label='Survived')
+plt.bar(decks, not_survived_count, bottom=survived_count, label='Not Survived')
+plt.ylabel('Survival Count')
+plt.xlabel('Deck')
+plt.title('Survival Counts for Each Deck')
 
-
-
+# fig2,axs2 = plt.subplot()
+plt.figure(2)
+plt.bar(decks, survived_percentage, label='Survived Percentage', edgecolor='white')
+plt.bar(decks, not_survived_percentage, bottom=survived_percentage, label='Not Survived Percentage', edgecolor='white')
+plt.yticks([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+plt.ylabel('Survival Percentage')
+plt.xlabel('Deck')
+plt.title('Survival Percentages for Each Deck')
 
 
 # df_all_decks_survived = Full_data.groupby(['Deck', 'Survived']).count().drop(columns=['Sex', 'Age', 'SibSp', 'Parch', 'Fare', 
